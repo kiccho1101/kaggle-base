@@ -8,3 +8,29 @@ services:
     volumes:
       - .:/app
     command: jupyter notebook --ip 0.0.0.0 --no-browser --allow-root
+
+  postgres:
+    image: postgres:10.5
+    container_name: postgres
+    ports:
+      - ${POSTGRES_PORT}:5432
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata 
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    hostname: postgres
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d/
+      - ./postgres/data/:/var/lib/postgresql/data/
+
+  pgweb:
+    image: sosedoff/pgweb
+    ports:
+     - "${PGWEB_PORT}:8081"
+    environment:
+     - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/kaggle?sslmode=disable
+     - AUTH_USER=${PGWEB_USER}
+     - AUTH_PASS=${PGWEB_PASSWORD}
+    depends_on:
+     - postgres
