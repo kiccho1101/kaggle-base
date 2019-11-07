@@ -1,4 +1,4 @@
-FROM gcr.io/kaggle-images/python:v56:latest
+FROM gcr.io/kaggle-images/python:latest
 
 WORKDIR /app
 
@@ -61,6 +61,6 @@ RUN mkdir -p $(jupyter --data-dir)/nbextensions \
     && jupyter nbextension enable vim_binding/vim_binding
 
 # # Change Theme
-RUN jt -t chesterish -T -f roboto -fs 9 -tf merriserif -tfs 11 -nf ptsans -nfs 11 -dfs 8 -ofs 8 -cellw 100% \
+RUN jt -t chesterish -T -f roboto -fs 9 -tf merriserif -tfs 11 -nf ptsans -nfs 11 -dfs 8 -ofs 8 -cellw 99% \
     && sed -i '1s/^/.edit_mode .cell.selected .CodeMirror-focused:not(.cm-fat-cursor) { background-color: #1a0000 !important; }\n /' /root/.jupyter/custom/custom.css \
     && sed -i '1s/^/.edit_mode .cell.selected .CodeMirror-focused.cm-fat-cursor { background-color: #1a0000 !important; }\n /' /root/.jupyter/custom/custom.css
