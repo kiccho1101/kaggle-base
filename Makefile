@@ -10,14 +10,11 @@ pull:
 jupyter:
 	docker-compose up jupyter 
 
-jupyter-shell:
-	docker-compose exec jupyter /bin/bash
-
 run:
-	docker-compose run --rm jupyter $(filter-out $@,$(MAKECMDGOALS))
+	docker-compose exec jupyter $(filter-out $@,$(MAKECMDGOALS))
 
 shell:
-	docker-compose run --rm jupyter /bin/bash
+	docker-compose exec jupyter /bin/bash
 
 check:
-	docker-compose run --rm jupyter flake8 /app/src
+	docker-compose exec jupyter flake8 /app/src
