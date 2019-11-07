@@ -1,4 +1,4 @@
-FROM gcr.io/kaggle-images/python:v56
+FROM gcr.io/kaggle-images/python:v56:latest
 
 WORKDIR /app
 
