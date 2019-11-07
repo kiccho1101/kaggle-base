@@ -1,8 +1,8 @@
 version: "3.2"
 services:
-  kaggle-base:
+  jupyter:
     build: .
-    image: youodf/kaggle-base
+    image: youodf/jupyter
     ports:
       - "${JUPYTER_PORT}:8888"
     volumes:
