@@ -1,0 +1,10 @@
+version: "3.2"
+services:
+  kaggle-base:
+    build: .
+    image: youodf/kaggle-base
+    ports:
+      - "${JUPYTER_PORT}:8888"
+    volumes:
+      - .:/app
+    command: jupyter notebook --ip 0.0.0.0 --no-browser --allow-root
