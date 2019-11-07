@@ -7,7 +7,7 @@ push:
 pull:
 	docker-compose pull jupyter
 
-db:
+start-db:
 	docker-compose up --build -d postgres pgweb
 
 stop-db:
@@ -22,5 +22,13 @@ run:
 shell:
 	docker-compose exec jupyter /bin/bash
 
+format:
+	docker-compose exec jupyter isort /app/src --recursive 
+	docker-compose exec jupyter black /app/src
+
 check:
 	docker-compose exec jupyter flake8 /app/src
+	docker-compose exec jupyter mypy /app/src
+
+stop-all:
+	docker-compose down
