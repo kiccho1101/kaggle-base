@@ -2,22 +2,22 @@ build:
 	docker-compose build
 
 push:
-	docker-compose push kaggle-base
+	docker-compose push jupyter
 
 pull:
-	docker-compose pull kaggle-base
+	docker-compose pull jupyter
 
 jupyter:
-	docker-compose up kaggle-base 
+	docker-compose up jupyter 
 
 jupyter-shell:
-	docker-compose exec kaggle-base /bin/bash
+	docker-compose exec jupyter /bin/bash
 
 run:
-	docker-compose run --rm kaggle-base $(filter-out $@,$(MAKECMDGOALS))
+	docker-compose run --rm jupyter $(filter-out $@,$(MAKECMDGOALS))
 
 shell:
-	docker-compose run --rm kaggle-base /bin/bash
+	docker-compose run --rm jupyter /bin/bash
 
 check:
-	docker-compose run --rm kaggle-base flake8 /app/src
+	docker-compose run --rm jupyter flake8 /app/src
