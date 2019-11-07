@@ -7,6 +7,12 @@ push:
 pull:
 	docker-compose pull jupyter
 
+db:
+	docker-compose up --build -d postgres pgweb
+
+stop-db:
+	docker-compose stop postgres pgweb
+
 jupyter:
 	docker-compose up jupyter 
 
