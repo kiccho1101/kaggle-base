@@ -18,9 +18,9 @@ with psycopg2.connect(
     conn.commit()
 
 # Read data
-train = pd.read_csv("./../input/train.csv")
-test = pd.read_csv("./../input/test.csv")
-feature = pd.read_csv("./../input/feature.csv")
+train = pd.read_csv(os.environ["PROJECT_DIR"] + "/input/train.csv")
+test = pd.read_csv(os.environ["PROJECT_DIR"] + "/input/test.csv")
+feature = pd.read_csv(os.environ["PROJECT_DIR"] + "/input/feature.csv")
 
 # Insert train, test data into DB
 engine = create_engine(

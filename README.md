@@ -25,6 +25,14 @@ make build
 make jupyter
 ```
 
+### Step2. Start up DB
+
+```sh
+make start-db
+```
+
+Then you can access to localhost:${PGWEB_PORT} to view the database.
+
 ### Run the script
 
 Recommended:

@@ -8,12 +8,18 @@ pull:
 	docker-compose pull jupyter
 
 start-db:
-	docker-compose up --build -d postgres pgweb
+	&& docker-compose up --build -d postgres \
+	&& sleep 15 \
+	&& docker-compose up --build -d pgweb \
+	&& docker-compose exec jupyter python db/init.py
 
 reset-db:
 	sudo rm -rf postgres/data \
-	&& docker-compose up --build -d postgres \
-	&& docker-compose up --build -d pgweb 
+	&& docker-compose build --no-cache postgres \
+	&& docker-compose up -d postgres \
+	&& sleep 15 \
+	&& docker-compose up --build -d pgweb \
+	&& docker-compose exec jupyter python db/init.py
 
 stop-db:
 	docker-compose stop postgres pgweb
