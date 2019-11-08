@@ -1,46 +1,68 @@
 # kaggle-base
-Template directory for datascience competitions.
-Data is saved in PostgreSQL on Dockcer container and the data is reproducibule/reusable.
 
-# Usage
+- Template directory for datascience competitions.
+- Data is saved in PostgreSQL on Dockcer container and the data is reproducibule/reusable.
 
-## Step0. Pull/Build Docker image
-```
+## Usage
+
+### Step0. Pull/Build Docker image
+
+Recommended:
+
+```sh
 make pull
 ```
-or 
-```
+
+or
+
+```sh
 make build
 ```
 
-## Step1. Start up jupyter notebook
-```
+### Step1. Start up jupyter notebook
+
+```sh
 make jupyter
 ```
 
-## Run the script
-```
-make run python src/foo.py
+### Run the script
+
+Recommended:
+
+```sh
+make shell
+python xxx.py
 ```
 
-## isort, black
+```sh
+make run python xxx.py
 ```
+
+### isort, black
+
+```sh
 make format
 ```
 
-## flake8, mypy
-```
+### flake8, mypy
+
+```sh
 make check
 ```
 
-# References
-### [1.データ分析コンペにおいて 特徴量管理に疲弊している全人類に伝えたい想い][1] 
-まさに特徴量管理に疲弊していたときに見つけたスライド。すごくわかりやすいです。
-### [2.Kaggleで使えるFeather形式を利用した特徴量管理法][2]
-クラスの書き方が参考になります。
-### [3.flowlight0's directory][3]
-### [4.upura's directory][4]
+## References
 
+### [1.データ分析コンペにおいて 特徴量管理に疲弊している全人類に伝えたい想い][1]
+
+まさに特徴量管理に疲弊していたときに見つけたスライド。すごくわかりやすいです。
+
+### [2.Kaggleで使えるFeather形式を利用した特徴量管理法][2]
+
+クラスの書き方が参考になります。
+
+### [3.flowlight0's directory][3]
+
+### [4.upura's directory][4]
 
 [1]:https://speakerdeck.com/takapy/detafen-xi-konpenioite-te-zheng-liang-guan-li-nipi-bi-siteiruquan-ren-lei-nichuan-etaixiang-i
 [2]:https://amalog.hateblo.jp/entry/kaggle-feature-management

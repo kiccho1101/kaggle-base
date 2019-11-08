@@ -31,8 +31,8 @@ shell:
 	docker-compose exec jupyter /bin/bash
 
 format:
-	docker-compose exec jupyter isort /app --recursive 
-	docker-compose exec jupyter black /app
+	docker-compose exec jupyter isort /app/ --recursive 
+	docker-compose exec jupyter black /app/
 
 check:
 	docker-compose exec jupyter flake8 /app
