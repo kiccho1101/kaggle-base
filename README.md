@@ -26,7 +26,7 @@ make jupyter
 make token
 ```
 
-Copy token and acccess to localhost:${JUPYTER_PORT}
+- Copy token and acccess to localhost:${JUPYTER_PORT}
 
 ### Step2. Start up DB
 
@@ -34,8 +34,8 @@ Copy token and acccess to localhost:${JUPYTER_PORT}
 make start-db
 ```
 
-Then you can access to localhost:${PGWEB_PORT} to view the database.
-You can access to localhost:${METABASE_PORT} to do the simple BI.
+- Then you can access to localhost:${PGWEB_PORT} to view the database.
+- You can access to localhost:${METABASE_PORT} to do the simple BI.
 
 ### Run the script
 
