@@ -29,8 +29,10 @@ make check
 ```
 
 # References
-[データ分析コンペにおいて 特徴量管理に疲弊している全人類に伝えたい想い][1] <- まさに特徴量管理に疲弊していたときに見つけたスライド。すごくわかりやすいです。
-[Kaggleで使えるFeather形式を利用した特徴量管理法][2] <- クラスの書き方が参考になります。
+- [データ分析コンペにおいて 特徴量管理に疲弊している全人類に伝えたい想い][1] 
+まさに特徴量管理に疲弊していたときに見つけたスライド。すごくわかりやすいです。
+- [Kaggleで使えるFeather形式を利用した特徴量管理法][2]
+クラスの書き方が参考になります。
 
 
 [1]:https://speakerdeck.com/takapy/detafen-xi-konpenioite-te-zheng-liang-guan-li-nipi-bi-siteiruquan-ren-lei-nichuan-etaixiang-i
