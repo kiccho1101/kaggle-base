@@ -23,13 +23,10 @@ make build
 
 ```sh
 make jupyter
-```
-
-Get token and acccess to localhost:${JUPYTER_PORT}
-
-```sh
 make token
 ```
+
+Copy token and acccess to localhost:${JUPYTER_PORT}
 
 ### Step2. Start up DB
 
