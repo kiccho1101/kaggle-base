@@ -34,6 +34,8 @@ make shell
 python xxx.py
 ```
 
+or
+
 ```sh
 make run python xxx.py
 ```

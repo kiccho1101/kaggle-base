@@ -1,0 +1,12 @@
+feature,description,depends_on
+PassengerId,ID,
+Survived,Survival,
+Pclass,Ticket class,
+Sex,Sex,
+Age,Age in years,
+SibSp,# of siblings / spouses aboard the Titanic,
+Parch,# of parents / children aboard the Titanic,
+Ticket,Ticket number,
+Fare,Passenger fare,
+Cabin,Cabin number,
+Embarked,Port of Embarkation C=Cherbourg Q=Queenstown S=Southampton,
