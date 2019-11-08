@@ -34,8 +34,10 @@ make check
 ### [2.Kaggleで使えるFeather形式を利用した特徴量管理法][2]
 クラスの書き方が参考になります。
 ### [3.flowlight0's directory][3]
+### [4.upura's directory][4]
 
 
 [1]:https://speakerdeck.com/takapy/detafen-xi-konpenioite-te-zheng-liang-guan-li-nipi-bi-siteiruquan-ren-lei-nichuan-etaixiang-i
 [2]:https://amalog.hateblo.jp/entry/kaggle-feature-management
 [3]:https://github.com/flowlight0/talkingdata-adtracking-fraud-detection
+[4]:https://github.com/upura/ml-competition-template-titanic
