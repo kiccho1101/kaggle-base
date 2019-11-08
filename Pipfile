@@ -1,0 +1,45 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+black = "==19.3b0"
+conttest = "*"
+dvc = {extras = ["gs"],version = "*"}
+flake8 = "*"
+invoke = "*"
+isort = "*"
+mypy = "*"
+pep8 = "*"
+pycodestyle = "*"
+pycodestyle-magic = "*"
+tox = "*"
+
+[packages]
+ipython = "*"
+jupyter = "*"
+jupyterthemes = "*"
+jupyter-contrib-nbextensions = "*"
+jupyter-nbextensions-configurator = "*"
+matplotlib = "*"
+numpy = "*"
+pandas = "*"
+scikit-learn = "*"
+seaborn = "*"
+tqdm = "*"
+plotly = "*"
+lightgbm = "*"
+xgboost = "*"
+contextlib2 = "*"
+category-encoders = "*"
+japanize-matplotlib = "*"
+beautifulsoup4 = "*"
+requests = "*"
+
+[pipenv]
+allow_prereleases = true
+
+[requires]
+python_version = "3.7"
+

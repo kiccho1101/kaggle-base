@@ -10,26 +10,30 @@ services:
     command: jupyter notebook --ip 0.0.0.0 --no-browser --allow-root
 
   postgres:
-    image: postgres:10.5
+    build: 
+      context: ./postgres
+      dockerfile: ./Dockerfile
+      args:
+        - PROJECT_NAME=${PROJECT_NAME}
     container_name: postgres
     ports:
       - ${POSTGRES_PORT}:5432
     environment:
-      PGDATA: /var/lib/postgresql/data/pgdata 
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
-    hostname: postgres
+      - PROJECT_NAME=${PROJECT_NAME}
+      - PGDATA=/var/lib/postgresql/data/pgdata 
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_INITDB_ARGS="--encoding=UTF-8"
     volumes:
-      - ./postgres/init:/docker-entrypoint-initdb.d/
       - ./postgres/data/:/var/lib/postgresql/data/
+    hostname: postgres
 
   pgweb:
-    image: sosedoff/pgweb
+    build: ./pgweb
     ports:
      - "${PGWEB_PORT}:8081"
     environment:
-     - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/kaggle?sslmode=disable
+     - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${PROJECT_NAME}?sslmode=disable
      - AUTH_USER=${PGWEB_USER}
      - AUTH_PASS=${PGWEB_PASSWORD}
     depends_on:
