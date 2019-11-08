@@ -1,5 +1,6 @@
 
-postgres/data
+docker/postgres/data
+docker/metabase/data
 
 .vscode 
 

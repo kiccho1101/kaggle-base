@@ -12,14 +12,17 @@ start-db:
 	&& docker-compose up -d postgres \
 	&& sleep 15 \
 	&& docker-compose up --build -d pgweb \
+	&& docker-compose up --build -d metabase \
 	&& docker-compose exec jupyter python db/init.py
 
 reset-db:
 	sudo rm -rf postgres/data \
+	&& sudo rm -rf metabase/data \
 	&& docker-compose build --no-cache postgres \
 	&& docker-compose up -d postgres \
 	&& sleep 15 \
 	&& docker-compose up --build -d pgweb \
+	&& docker-compose up --build -d metabase \
 	&& docker-compose exec jupyter python db/init.py
 
 stop-db:
