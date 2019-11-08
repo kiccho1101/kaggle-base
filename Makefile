@@ -16,8 +16,8 @@ start-db:
 	&& docker-compose exec jupyter python db/init.py
 
 reset-db:
-	sudo rm -rf postgres/data \
-	&& sudo rm -rf metabase/data \
+	sudo rm -rf ./docker/postgres/data \
+	&& sudo rm -rf ./docker/metabase/data \
 	&& docker-compose build --no-cache postgres \
 	&& docker-compose up -d postgres \
 	&& sleep 15 \
@@ -29,7 +29,9 @@ stop-db:
 	docker-compose stop postgres pgweb
 
 jupyter:
-	docker-compose up -d jupyter 
+	docker-compose up -d jupyter \
+	&& sleep 5 \
+	&& docker-compose exec jupyter jupyter notebook list 
 
 token:
 	docker-compose exec jupyter jupyter notebook list 
