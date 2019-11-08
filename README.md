@@ -23,7 +23,12 @@ make jupyter
 make run python src/foo.py
 ```
 
-## flake8
+## isort, black
+```
+make format
+```
+
+## flake8, mypy
 ```
 make check
 ```
