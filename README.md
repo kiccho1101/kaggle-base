@@ -35,6 +35,7 @@ make start-db
 ```
 
 Then you can access to localhost:${PGWEB_PORT} to view the database.
+You can access to localhost:${METABASE_PORT} to do the simple BI.
 
 ### Run the script
 
