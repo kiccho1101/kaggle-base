@@ -23,7 +23,6 @@ make build
 
 ```sh
 make jupyter
-make token
 ```
 
 - Copy token and acccess to localhost:${JUPYTER_PORT}
@@ -51,6 +50,8 @@ or
 ```sh
 make run python xxx.py
 ```
+
+## Commands
 
 ### isort, black
 
