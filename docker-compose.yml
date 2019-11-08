@@ -31,7 +31,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_INITDB_ARGS="--encoding=UTF-8"
     volumes:
-      - ./postgres/data/:/var/lib/postgresql/data/
+      - ./docker/postgres/data/:/var/lib/postgresql/data/
     hostname: postgres
 
   pgweb:
@@ -52,7 +52,7 @@ services:
       context: ./docker/metabase
       dockerfile: ./Dockerfile
     volumes:
-      - "./metabase/data/:/metabase-data/"
+      - "./docker/metabase/data/:/metabase-data/"
     environment:
       MB_DB_FILE: /metabase-data/metabase.db
       MB_DB_TYPE: postgres
