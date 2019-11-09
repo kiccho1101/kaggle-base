@@ -1,0 +1,12 @@
+feature,data_type,description,depends_on
+passenger_id,int,ID,
+survived,binary,Survival,
+pclass,int,Ticket class,
+sex,str,Sex,
+age,float,Age in years,
+sib_sp,int,# of siblings / spouses aboard the Titanic,
+parch,int,# of parents / children aboard the Titanic,
+ticket,str,Ticket number,
+fare,float,Passenger fare,
+cabin,str,Cabin number,
+embarked,str,Port of Embarkation C=Cherbourg Q=Queenstown S=Southampton,
