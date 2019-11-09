@@ -50,7 +50,21 @@ make feature
 make feature FEATURE_NAME
 ```
 
-### Run the script
+## Commands
+
+### isort, black
+
+```sh
+make format
+```
+
+### flake8, mypy
+
+```sh
+make check
+```
+
+### execute scripts
 
 Recommended:
 
@@ -65,19 +79,6 @@ or
 make run python xxx.py
 ```
 
-## Commands
-
-### isort, black
-
-```sh
-make format
-```
-
-### flake8, mypy
-
-```sh
-make check
-```
 
 ## References
 
