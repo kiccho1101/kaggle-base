@@ -1,72 +1,45 @@
-import numpy as np
-import pandas as pd
+import inspect
+import sys
 
-from features.base import Feature, generate_features, get_arguments
-
-Feature.dir = "features"
-
-
-class Pclass(Feature):
-    def create_features(self):
-        self.train["Pclass"] = train["Pclass"]
-        self.test["Pclass"] = test["Pclass"]
+from db.table_load import table_load
+from db.table_write import table_write
+from features.fill_null import *
 
 
-class Sex(Feature):
-    def create_features(self):
-        self.train["Sex"] = train["Sex"].replace(["male", "female"], [0, 1])
-        self.test["Sex"] = test["Sex"].replace(["male", "female"], [0, 1])
-
-
-class FamilySize(Feature):
-    def create_features(self):
-        self.train["FamilySize"] = train["Parch"] + train["SibSp"] + 1
-        self.test["FamilySize"] = test["Parch"] + test["SibSp"] + 1
-
-
-class Embarked(Feature):
-    def create_features(self):
-        self.train["Embarked"] = (
-            train["Embarked"].fillna(("S")).map({"S": 0, "C": 1, "Q": 2}).astype(int)
-        )
-        self.test["Embarked"] = (
-            test["Embarked"].fillna(("S")).map({"S": 0, "C": 1, "Q": 2}).astype(int)
-        )
-
-
-class Fare(Feature):
-    def create_features(self):
-        data = train.append(test)
-        fare_mean = data["Fare"].mean()
-        self.train["Fare"] = pd.qcut(train["Fare"].fillna(fare_mean), 4, labels=False)
-        self.test["Fare"] = pd.qcut(test["Fare"].fillna(fare_mean), 4, labels=False)
-
-
-class Age(Feature):
-    def create_features(self):
-        data = train.append(test)
-        age_mean = data["Age"].mean()
-        age_std = data["Age"].std()
-        self.train["Age"] = pd.qcut(
-            train["Age"].fillna(
-                np.random.randint(age_mean - age_std, age_mean + age_std)
-            ),
-            5,
-            labels=False,
-        )
-        self.test["Age"] = pd.qcut(
-            test["Age"].fillna(
-                np.random.randint(age_mean - age_std, age_mean + age_std)
-            ),
-            5,
-            labels=False,
-        )
+def get_features():
+    features = {}
+    namespace = globals()
+    for var_name in list(namespace):
+        variable = namespace[var_name]
+        if (
+            inspect.isclass(variable)
+            and issubclass(variable, Feature)
+            and not inspect.isabstract(variable)
+        ):
+            features[var_name] = variable
+    return features
 
 
 if __name__ == "__main__":
-    args = get_arguments()
+    print()
+    train = table_load("train")
+    test = table_load("test")
+    memo = table_load("memo")
+    print()
 
-    train = pd.read_csv("./input/train.csv")
-    test = pd.read_csv("./input/test.csv")
+    features = get_features()
+    exec_feature_list = sys.argv[1:]
 
-    generate_features(globals(), args.force)
+    if len(exec_feature_list) == 0:
+        for feature in features:
+            train, test, memo = features[feature](train, test, memo).run()
+
+    else:
+        for feature in exec_feature_list:
+            train, test, memo = features[feature](train, test, memo).run()
+
+    print()
+    table_write(train, "train")
+    table_write(test, "test")
+    table_write(memo, "memo")
+    print()
