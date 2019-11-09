@@ -42,4 +42,5 @@ if __name__ == "__main__":
     table_write(train, "train")
     table_write(test, "test")
     table_write(memo, "memo")
+    memo.to_csv("input/memo.csv")
     print()
