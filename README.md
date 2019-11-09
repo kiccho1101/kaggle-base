@@ -47,6 +47,7 @@ make feature
 - Specify a feature that will be created.
 
 ```sh
+make feature FEATURE_NAME
 ```
 
 ### Run the script
