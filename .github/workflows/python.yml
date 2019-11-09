@@ -1,0 +1,44 @@
+name: Python Check Format, Sorting, and Type-Check
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "Pipfile"
+      - "Pipfile.lock"
+      - "**.py"
+  pull_request:
+    paths:
+      - "Pipfile"
+      - "Pipfile.lock"
+      - "**.py"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install pipenv package
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+      - name: Cache pipenv
+        id: cache
+        uses: actions/cache@preview
+        with:
+          path: .venv
+          key: pipenv-${{ hashFiles('**/Pipfile.lock') }}
+          restore-keys: |
+            pipenv-
+      - name: Install dependencies with pipenv
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          pipenv sync --dev
+        env:
+          PIPENV_VENV_IN_PROJECT: true
+      - name: Run test with Tox
+        run: |
+          pipenv run tox -e libs,flake8,mypy,format -p all
