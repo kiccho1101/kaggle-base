@@ -36,6 +36,19 @@ make start-db
 - Then you can access to localhost:${PGWEB_PORT} to view the database.
 - You can access to localhost:${METABASE_PORT} to do the simple BI.
 
+### Step3. Create Features
+
+- Create all features.
+
+```sh
+make feature
+```
+
+- Specify a feature that will be created.
+
+```sh
+```
+
 ### Run the script
 
 Recommended:

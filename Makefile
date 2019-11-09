@@ -54,5 +54,8 @@ check:
 	docker-compose exec jupyter flake8 /app \
 	&& docker-compose exec jupyter mypy /app
 
+feature: 
+	docker-compose exec jupyter python features/create.py $(filter-out $@,$(MAKECMDGOALS))
+
 stop-all:
 	docker-compose down
