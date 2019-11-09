@@ -1,12 +1,14 @@
-feature,data_type,description,depends_on
-passenger_id,int,ID,
-survived,binary,Survival,
-pclass,int,Ticket class,
-sex,str,Sex,
-age,float,Age in years,
-sib_sp,int,# of siblings / spouses aboard the Titanic,
-parch,int,# of parents / children aboard the Titanic,
-ticket,str,Ticket number,
-fare,float,Passenger fare,
-cabin,str,Cabin number,
-embarked,str,Port of Embarkation C=Cherbourg Q=Queenstown S=Southampton,
+,feature,data_type,description,depends_on
+0,PassengerId,int,ID,
+1,Survived,binary,Survival,
+2,Pclass,int,Ticket class,
+3,Sex,str,Sex,
+4,Age,float,Age in years,
+5,SibSp,int,# of siblings / spouses aboard the Titanic,
+6,Parch,int,# of parents / children aboard the Titanic,
+7,Ticket,str,Ticket number,
+8,Fare,float,Passenger fare,
+9,Cabin,str,Cabin number,
+10,Embarked,str,Port of Embarkation C=Cherbourg Q=Queenstown S=Southampton,
+11,age_null_filled_with_mode,int,age NaN-filled with mode,age
+12,embarked_null_filled_with_mode,str,embarked NaN-filled with mode,embarked
