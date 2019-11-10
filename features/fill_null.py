@@ -3,6 +3,7 @@ import pandas as pd
 from features import Feature
 from utils import timer
 
+
 class AgeNullFilledWithMode(Feature):
     def create_features(self):
         with timer(self.name):
@@ -32,4 +33,6 @@ class EmbarkedNullFilledWithMode(Feature):
                 combined["embarked"].value_counts().index[0]
             )
 
-            self.create_memo(self.name, "str", "embarked NaN-filled with mode", "embarked")
+            self.create_memo(
+                self.name, "str", "embarked NaN-filled with mode", "embarked"
+            )

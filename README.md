@@ -57,7 +57,7 @@ make feature
 make feature FEATURE_NAME
 ```
 
-### Step5. Cross Validation
+### Step5. Train and Predict
 
 ```sh
 # Get into docker env
@@ -65,6 +65,14 @@ make shell
 
 # Execute Cross Validation
 python run.py --config lightgbm_0
+```
+
+### Step6. Submit
+
+- Then submit your output file!🙆
+
+```sh
+./output/submission_xxx.csv
 ```
 
 ## Commands
