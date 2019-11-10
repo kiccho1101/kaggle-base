@@ -2,8 +2,7 @@ import os
 
 import pandas as pd
 
-from db.exec_query import exec_query
-from db.table_write import table_write
+from db import exec_query, table_write
 
 print("Initializing Database...")
 

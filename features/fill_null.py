@@ -1,6 +1,6 @@
 import pandas as pd
 
-from features.base import Feature
+from features import Feature
 
 
 class AgeNullFilledWithMode(Feature):
