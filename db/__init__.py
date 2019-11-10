@@ -60,7 +60,7 @@ def table_write(df: pd.DataFrame, table_name: str):
                     "([A-Z])", lambda x: "_" + x.group(1).lower(), col
                 ).lstrip("_")
             )
-            .to_list()
+            .tolist()
         )
 
         engine = create_engine(

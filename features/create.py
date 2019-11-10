@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     with timer("Create features"):
         features = get_features()
-        if sys.argv[1:] == 0:
+        if len(sys.argv[1:]) == 0:
             exec_feature_list = features
         else:
             exec_feature_list = sys.argv[1:]
