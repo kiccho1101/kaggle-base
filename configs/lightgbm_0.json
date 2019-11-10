@@ -1,0 +1,45 @@
+{
+  "features": {
+    "id": ["passenger_id"],
+    "target": ["survived"],
+    "train": [
+      "fare",
+      "age_null_filled_with_mode"
+    ],
+    "categorical": []
+  },
+  "model": {
+    "name": "lightgbm",
+    "model_params": {
+      "boosting_type": "gbdt",
+      "objective": "binary",
+      "metric": "binary_logloss",
+      "learning_rate": 0.1,
+      "num_leaves": 255,
+      "max_depth": 8,
+      "min_child_samples": 100,
+      "max_bin": 100,
+      "subsample": 0.7,
+      "subsample_freq": 1,
+      "colsample_bytree": 0.7,
+      "min_child_weight": 0,
+      "subsample_for_bin": 200000,
+      "min_split_gain": 0,
+      "reg_alpha": 0,
+      "reg_lambda": 0,
+      "verbose": -1
+    },
+    "train_params": {
+      "num_boost_round": 350,
+      "verbose_eval": false
+    }
+  },
+  "dataset": {
+    "train_table": "train",
+    "test_table": "test"
+  },
+  "cv": {
+    "n_splits": 5,
+    "random_state": 42
+  }
+}

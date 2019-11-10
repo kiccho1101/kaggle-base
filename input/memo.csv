@@ -1,4 +1,4 @@
-,feature,data_type,description,depends_on
+index,feature,data_type,description,depends_on
 0,PassengerId,int,ID,
 1,Survived,binary,Survival,
 2,Pclass,int,Ticket class,

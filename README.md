@@ -50,6 +50,16 @@ make feature
 make feature FEATURE_NAME
 ```
 
+### Step4. Cross Validation
+
+```sh
+# Get into docker env
+make shell
+
+# Execute Cross Validation
+python run.py --config lightgbm_0
+```
+
 ## Commands
 
 ### isort, black
@@ -78,7 +88,6 @@ or
 ```sh
 make run python xxx.py
 ```
-
 
 ## References
 

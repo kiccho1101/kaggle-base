@@ -27,7 +27,6 @@ def table_load(table_name: str, cols=None) -> pd.DataFrame:
 
     with timer("table load ({})".format(table_name)):
 
-        # Drop table train, test
         with psycopg2.connect(
             user=os.environ["POSTGRES_USER"],
             password=os.environ["POSTGRES_PASSWORD"],
@@ -53,7 +52,7 @@ def table_write(df: pd.DataFrame, table_name: str):
 
     with timer("table write ({})".format(table_name)):
 
-        # Rename cols to snake-case
+        # Rename cols to snake_case
         df.columns = (
             pd.Series(df.columns)
             .map(
