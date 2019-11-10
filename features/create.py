@@ -1,12 +1,11 @@
 import inspect
 import sys
 
-from db.table_load import table_load
-from db.table_write import table_write
+from db import table_load, table_write
 from features.fill_null import *
 
 
-def get_features():
+def get_features() -> Dict[str, Any]:
     features = {}
     namespace = globals()
     for var_name in list(namespace):
