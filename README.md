@@ -1,7 +1,7 @@
 # kaggle-base
 
 - Template directory for datascience competitions.
-- Data is saved in PostgreSQL on Dockcer container and the data is reproducibule/reusable.
+- Data is saved in PostgreSQL on Docker🐳 container and the data is reproducibule/reusable 😄🎉
 
 ## Usage
 
