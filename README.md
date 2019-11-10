@@ -5,7 +5,14 @@
 
 ## Usage
 
-### Step0. Pull/Build Docker image
+### Step0. Clone the repository
+
+```sh
+git clone https://github.com/kiccho1101/kaggle-base.git
+cd kaggle-base
+```
+
+### Step1. Pull/Build Docker image
 
 Recommended:
 
@@ -19,24 +26,24 @@ or
 make build
 ```
 
-### Step1. Start up jupyter notebook
+### Step2. Start up jupyter notebook
 
 ```sh
 make jupyter
 ```
 
-- Copy token and acccess to localhost:${JUPYTER_PORT}
+- Copy token and acccess to localhost:${JUPYTER_PORT} (default: 9000)
 
-### Step2. Start up DB
+### Step3. Start up DB
 
 ```sh
 make start-db
 ```
 
-- Then you can access to localhost:${PGWEB_PORT} to view the database.
-- You can access to localhost:${METABASE_PORT} to do the simple BI.
+- Then you can access to localhost:${PGWEB_PORT} (default: 9002) to view the database.
+- You can access to localhost:${METABASE_PORT} (default: 9003) to do the simple BI.
 
-### Step3. Create Features
+### Step4. Create Features
 
 - Create all features.
 
@@ -50,7 +57,7 @@ make feature
 make feature FEATURE_NAME
 ```
 
-### Step4. Cross Validation
+### Step5. Cross Validation
 
 ```sh
 # Get into docker env
