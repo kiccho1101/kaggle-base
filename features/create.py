@@ -3,9 +3,10 @@ import sys
 
 from db import table_load, table_write
 from features.fill_null import *
+from utils import timer
 
 
-def get_features() -> Dict[str, Any]:
+def get_features() -> dict:
     features = {}
     namespace = globals()
     for var_name in list(namespace):
@@ -26,14 +27,13 @@ if __name__ == "__main__":
     memo = table_load("memo")
     print()
 
-    features = get_features()
-    exec_feature_list = sys.argv[1:]
+    with timer("Create features"):
+        features = get_features()
+        if sys.argv[1:] == 0:
+            exec_feature_list = features
+        else:
+            exec_feature_list = sys.argv[1:]
 
-    if len(exec_feature_list) == 0:
-        for feature in features:
-            train, test, memo = features[feature](train, test, memo).run()
-
-    else:
         for feature in exec_feature_list:
             train, test, memo = features[feature](train, test, memo).run()
 
