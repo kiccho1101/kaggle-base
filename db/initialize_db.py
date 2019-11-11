@@ -21,4 +21,9 @@ table_write(df=train, table_name="train")
 table_write(df=test, table_name="test")
 table_write(df=memo, table_name="memo")
 
+# Create Index
+exec_query("CREATE INDEX train_index on train (index);")
+exec_query("CREATE INDEX test_index on test (index);")
+exec_query("CREATE INDEX memo_index on memo (index);")
+
 print("Done!!")
