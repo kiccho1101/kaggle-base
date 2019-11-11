@@ -3,7 +3,7 @@ from abc import ABCMeta, abstractmethod
 
 import pandas as pd
 
-from db import table_load, table_write, insert_cols
+from db import find_table_name, insert_cols, table_load, table_write
 from utils import timer
 
 
@@ -17,17 +17,18 @@ class Feature(metaclass=ABCMeta):
                 "([A-Z])", lambda x: "_" + x.group(1).lower(), self.__class__.__name__
             ).lstrip("_")
 
-        self.train = table_load(table_name="train", cols=self.depends_on())
-        self.test = table_load(table_name="test", cols=self.depends_on())
-        self.memo = table_load(table_name="memo")
-
     def create_memo(
-        self, feature_name: str, data_type: str, description: str, depends_on: str
+        self,
+        memo: pd.DataFrame,
+        feature_name: str,
+        data_type: str,
+        description: str,
+        depends_on: str,
     ):
-        self.memo = (
+        memo = (
             pd.concat(
                 [
-                    self.memo,
+                    memo,
                     pd.DataFrame(
                         [
                             {
@@ -48,13 +49,33 @@ class Feature(metaclass=ABCMeta):
                 ["feature", "data_type", "description", "depends_on"]
             ]
         )
-        table_write(self.memo, table_name="memo")
+        table_write(memo, table_name="memo")
+        return memo
 
     def run(self):
         with timer(self.name):
-            self.create_features()
-            insert_cols(table_name="train", df=self.train)
-            insert_cols(table_name="test", df=self.test)
+            train = table_load(table_name="train", cols=self.depends_on())
+            test = table_load(table_name="test", cols=self.depends_on())
+            memo = table_load(table_name="memo")
+            train, test, memo = self.create_features(train, test, memo)
+            insert_cols(table_name="train", df=train)
+            insert_cols(table_name="test", df=test)
+
+            cv_train_tables = find_table_name("cv_train")["table_name"].tolist()
+            cv_test_tables = find_table_name("cv_test")["table_name"].tolist()
+            if len(cv_train_tables) != len(cv_test_tables):
+                raise ValueError("# of cv_train is not equal to # of cv_test!")
+            for n_fold in range(len(cv_train_tables)):
+                train = table_load(
+                    table_name=cv_train_tables[n_fold], cols=self.depends_on()
+                )
+                test = table_load(
+                    table_name=cv_test_tables[n_fold], cols=self.depends_on()
+                )
+                memo = table_load(table_name="memo")
+                train, test, memo = self.create_features(train, test, memo)
+                insert_cols(table_name=cv_train_tables[n_fold], df=train)
+                insert_cols(table_name=cv_test_tables[n_fold], df=test)
 
     @abstractmethod
     def create_features(self):

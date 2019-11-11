@@ -29,8 +29,7 @@ def insert_cols(table_name: str, df: pd.DataFrame):
 
     queries = [
         """
-        ALTER TABLE {0} DROP COLUMN IF EXISTS {1};
-        ALTER TABLE {0} ADD COLUMN {1} {2};
+        ALTER TABLE {0} ADD COLUMN IF NOT EXISTS {1} {2};
         UPDATE {0} t1
         SET    {1} = t2.{1}
         FROM   {0}_tmp t2
@@ -52,8 +51,8 @@ def insert_cols(table_name: str, df: pd.DataFrame):
             cur.execute(query)
         conn.commit()
 
-        # cur.execute("DROP TABLE {}_tmp;".format(table_name))
-        # conn.commit()
+        cur.execute("DROP TABLE {}_tmp;".format(table_name))
+        conn.commit()
 
 
 def exec_query(query: str):
@@ -69,6 +68,24 @@ def exec_query(query: str):
     ) as conn, conn.cursor() as cur:
         cur.execute(query)
         conn.commit()
+
+
+def find_table_name(like: str) -> pd.DataFrame:
+    with psycopg2.connect(
+        user=os.environ["POSTGRES_USER"],
+        password=os.environ["POSTGRES_PASSWORD"],
+        host=os.environ["POSTGRES_HOST"],
+        port=5432,
+        database=os.environ["PROJECT_NAME"],
+    ) as conn:
+        query = "SELECT table_name"
+        query += " FROM information_schema.tables"
+        query += " WHERE table_schema='public'"
+        query += " AND table_type='BASE TABLE'"
+        query += " AND table_name LIKE '%{}%'".format(like)
+        query += " ORDER BY table_name; "
+        df = pd.read_sql(query, con=conn)
+        return df
 
 
 def table_load(table_name: str, cols=None) -> pd.DataFrame:
