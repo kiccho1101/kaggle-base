@@ -28,6 +28,5 @@ def create_submission_file(PassengerId, Survived, exp_name: str):
         )
 
         pd.DataFrame({"PassengerId": PassengerId, "Survived": Survived}).to_csv(
-            submission_file_name,
-            index=False
+            submission_file_name, index=False
         )
