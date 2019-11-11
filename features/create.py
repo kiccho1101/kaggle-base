@@ -2,6 +2,7 @@ import inspect
 import sys
 
 from features.fill_null import *
+from features.categorical import *
 from utils import timer
 
 
@@ -28,5 +29,6 @@ if __name__ == "__main__":
         else:
             exec_feature_list = sys.argv[1:]
 
+        print(exec_feature_list)
         for feature in exec_feature_list:
             features[feature]().run()

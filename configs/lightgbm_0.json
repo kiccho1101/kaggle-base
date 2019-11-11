@@ -4,7 +4,8 @@
     "target": ["survived"],
     "train": [
       "fare",
-      "age_null_filled_with_mode"
+      "age_null_filled_with_mode",
+      "sex_int"
     ],
     "categorical": []
   },

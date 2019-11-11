@@ -43,7 +43,17 @@ make start-db
 - Then you can access to localhost:${PGWEB_PORT} (default: 9002) to view the database.
 - You can access to localhost:${METABASE_PORT} (default: 9003) to do the simple BI.
 
-### Step4. Create Features
+### Step4. Split train data into K-fold
+
+```sh
+# Get into docker env
+make shell
+
+# Split train
+python kfold.py --config lightgbm_0
+```
+
+### Step5. Create Features
 
 - Create all features.
 
@@ -57,7 +67,7 @@ make feature
 make feature FEATURE_NAME
 ```
 
-### Step5. Train and Predict
+### Step6. Train and Predict
 
 ```sh
 # Get into docker env
@@ -67,7 +77,7 @@ make shell
 python run.py --config lightgbm_0
 ```
 
-### Step6. Submit
+### Step7. Submit
 
 - Then submit your output file!🙆
 
