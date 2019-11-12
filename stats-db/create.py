@@ -4,14 +4,15 @@ from tqdm import tqdm
 from db import exec_query, find_table_name, table_load, table_write
 
 drop_table_names = find_table_name(like="stats")["table_name"].to_list()
-exec_query(
-    "".join(
-        [
-            "DROP TABLE {};".format(drop_table_name)
-            for drop_table_name in drop_table_names
-        ]
+if len(drop_table_names) > 0:
+    exec_query(
+        "".join(
+            [
+                "DROP TABLE {};".format(drop_table_name)
+                for drop_table_name in drop_table_names
+            ]
+        )
     )
-)
 
 table_names = []
 table_names += find_table_name(like="train")["table_name"].to_list()

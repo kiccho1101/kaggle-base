@@ -54,8 +54,8 @@ check:
 	docker-compose exec jupyter flake8 /app \
 	&& docker-compose exec jupyter mypy /app
 
-kfold-db: 
-	docker-compose exec jupyter python kfold/create.py $(filter-out $@,$(MAKECMDGOALS))
+kfold: 
+	docker-compose exec jupyter python k_fold/create.py $(filter-out $@,$(MAKECMDGOALS))
 
 feature: 
 	docker-compose exec jupyter python features/create.py $(filter-out $@,$(MAKECMDGOALS))
@@ -63,8 +63,8 @@ feature:
 cv: 
 	docker-compose exec jupyter python cross_validation/run.py $(filter-out $@,$(MAKECMDGOALS))
 
-stats-db: 
-	docker-compose exec jupyter python stats/create.py
+stats: 
+	docker-compose exec jupyter python stats-db/create.py
 
 train-and-predict: 
 	docker-compose exec jupyter python train_and_predict/run.py $(filter-out $@,$(MAKECMDGOALS))
