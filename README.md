@@ -72,7 +72,7 @@ make cv CONFIG_NAME
 ### Step7. Create Stats of each table
 
 ```sh
-make stats
+make stats-db
 ```
 
 ### Step8. Train and Predict
