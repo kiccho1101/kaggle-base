@@ -69,5 +69,8 @@ stats-db:
 train-and-predict: 
 	docker-compose exec jupyter python train_and_predict/run.py $(filter-out $@,$(MAKECMDGOALS))
 
+hp-tuning: 
+	docker-compose exec jupyter python hp_tuning/run.py $(filter-out $@,$(MAKECMDGOALS))
+
 stop-all:
 	docker-compose down
