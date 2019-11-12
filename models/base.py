@@ -6,6 +6,7 @@ import pandas as pd
 from lightgbm import Booster
 from sklearn.model_selection import StratifiedKFold
 
+from db import table_load
 from utils import timer
 
 
@@ -31,7 +32,6 @@ class Model:
         self,
         n_splits: int,
         random_state: int,
-        train: pd.DataFrame,
         target_cols: List[str],
         train_cols: List[str],
         categorical_cols: List[str],
@@ -41,15 +41,18 @@ class Model:
         result = pd.DataFrame()
         cv_models = []
 
-        folds = StratifiedKFold(
-            n_splits=n_splits, shuffle=True, random_state=random_state
-        ).split(train[train_cols], train[target_cols])
-
-        for n_fold, (train_index, valid_index) in enumerate(folds):
+        for n_fold in range(n_splits):
             with timer("CV No.{}".format(n_fold)):
+                train = table_load(
+                    "cv_train_{}".format(n_fold), train_cols + target_cols
+                )
+                valid = table_load(
+                    "cv_test_{}".format(n_fold), train_cols + target_cols
+                )
+
                 model, y_pred = self.train_and_predict(
-                    train=train.loc[train_index],
-                    valid=train.loc[valid_index],
+                    train=train,
+                    valid=valid,
                     weight=None,
                     categorical_features=categorical_cols,
                     target_cols=target_cols,
@@ -59,13 +62,13 @@ class Model:
 
                 cv_models.append(model)
 
-                y_real = train.loc[valid_index][target_cols].iloc[:, 0].values.flatten()
+                y_real = valid[target_cols].iloc[:, 0].values.flatten()
                 result = pd.concat(
                     [
                         result,
                         pd.DataFrame(
                             {
-                                "index": valid_index,
+                                "index": valid.index,
                                 "predicted": y_pred.flatten(),
                                 "real": y_real,
                                 "difference": y_pred.flatten() - y_real,

@@ -7,7 +7,7 @@
       "age_null_filled_with_mode",
       "sex_int"
     ],
-    "categorical": []
+    "categorical": ["sex_int"]
   },
   "model": {
     "name": "lightgbm",

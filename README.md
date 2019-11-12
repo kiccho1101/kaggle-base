@@ -46,11 +46,7 @@ make start-db
 ### Step4. Split train data into K-fold
 
 ```sh
-# Get into docker env
-make shell
-
-# Split train
-python kfold.py --config lightgbm_0
+make kfold-db CONFIG_NAME(default: lightgbm_0)
 ```
 
 ### Step5. Create Features
@@ -67,17 +63,19 @@ make feature
 make feature FEATURE_NAME
 ```
 
-### Step6. Train and Predict
+### Step6. Cross Validation
 
 ```sh
-# Get into docker env
-make shell
-
-# Execute Cross Validation
-python run.py --config lightgbm_0
+make cv CONFIG_NAME
 ```
 
-### Step7. Submit
+### Step7. Train and Predict
+
+```sh
+make train-and-predict CONFIG_NAME
+```
+
+### Step8. Submit
 
 - Then submit your output file!🙆
 
@@ -97,6 +95,12 @@ make format
 
 ```sh
 make check
+```
+
+### Reset DB
+
+```sh
+make reset-db
 ```
 
 ### execute scripts
