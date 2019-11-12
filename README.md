@@ -46,7 +46,7 @@ make start-db
 ### Step4. Split train data into K-fold
 
 ```sh
-make kfold-db CONFIG_NAME(default: lightgbm_0)
+make kfold CONFIG_NAME(default: lightgbm_0)
 ```
 
 ### Step5. Create Features
@@ -72,7 +72,7 @@ make cv CONFIG_NAME
 ### Step7. Create Stats of each table
 
 ```sh
-make stats-db
+make stats
 ```
 
 ### Step8. Train and Predict
