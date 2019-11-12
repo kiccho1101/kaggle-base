@@ -4,7 +4,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-from db import table_load
+from db import table_load, table_write
 from models import LightGBM
 from utils import timer
 
@@ -21,8 +21,6 @@ if __name__ == "__main__":
     models: dict = {"lightgbm": LightGBM}
     model = models[config["model"]["name"]]()
 
-    cv_result = pd.DataFrame()
-    cv_models = []
     n_splits = config["cv"]["n_splits"]
     random_state = config["cv"]["random_state"]
     target_cols = config["features"]["target"]
@@ -45,23 +43,17 @@ if __name__ == "__main__":
                 params=params,
             )
 
-            cv_models.append(cv_model)
-
             y_real = valid[target_cols].iloc[:, 0].values.flatten()
-            cv_result = pd.concat(
-                [
-                    cv_result,
-                    pd.DataFrame(
-                        {
-                            "index": valid.index,
-                            "predicted": y_pred.flatten(),
-                            "real": y_real,
-                            "difference": y_pred.flatten() - y_real,
-                            "n_fold": n_fold,
-                        }
-                    ),
-                ]
+            cv_result = pd.DataFrame(
+                {
+                    "index": valid.index,
+                    "predicted": y_pred.flatten(),
+                    "real": y_real,
+                    "difference": y_pred.flatten() - y_real,
+                    "difference_abs": abs(y_pred.flatten() - y_real),
+                }
             )
+            table_write(table_name="cv_result_{}".format(n_fold), df=cv_result)
 
             predicted = (y_pred.flatten() > 0.5).astype(int)
             accuracy = (predicted == y_real).sum() / len(predicted)

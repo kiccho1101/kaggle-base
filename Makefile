@@ -63,6 +63,9 @@ feature:
 cv: 
 	docker-compose exec jupyter python cross_validation/run.py $(filter-out $@,$(MAKECMDGOALS))
 
+stats-db: 
+	docker-compose exec jupyter python stats/create.py
+
 train-and-predict: 
 	docker-compose exec jupyter python train_and_predict/run.py $(filter-out $@,$(MAKECMDGOALS))
 
