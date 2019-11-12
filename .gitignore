@@ -1,7 +1,7 @@
 
 docker/postgres/data
 docker/metabase/data
-output/submission_*.csv
+output/submission/submission_*.csv
 
 .vscode 
 

@@ -69,13 +69,19 @@ make feature FEATURE_NAME
 make cv CONFIG_NAME
 ```
 
-### Step7. Train and Predict
+### Step7. Create Stats of each table
+
+```sh
+make stats
+```
+
+### Step8. Train and Predict
 
 ```sh
 make train-and-predict CONFIG_NAME
 ```
 
-### Step8. Submit
+### Step9. Submit
 
 - Then submit your output file!🙆
 

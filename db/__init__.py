@@ -122,7 +122,7 @@ def table_load(table_name: str, cols=None) -> pd.DataFrame:
         return df
 
 
-def table_write(df: pd.DataFrame, table_name: str):
+def table_write(table_name: str, df: pd.DataFrame):
 
     # Rename cols to snake_case
     df.columns = (
