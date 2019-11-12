@@ -23,7 +23,7 @@ def create_submission_file(PassengerId, Survived, exp_name: str):
 
         submission_file_name = os.environ[
             "PROJECT_DIR"
-        ] + "/output/submission_{}_{}_{}.csv".format(
+        ] + "/output/submission/submission_{}_{}_{}.csv".format(
             pd.to_datetime("today").strftime("%Y-%m-%d"), exp_name, submission_no
         )
 
