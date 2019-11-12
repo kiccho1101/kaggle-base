@@ -12,10 +12,6 @@ class SexInt(Feature):
         test["sex_int"] = test["sex"].map({"female": 0, "male": 1})
 
         memo = self.create_memo(
-            memo,
-            "sex_int",
-            "int",
-            "sex encoded as int",
-            " ".join(self.depends_on()),
+            memo, "sex_int", "int", "sex encoded as int", " ".join(self.depends_on()),
         )
         return train, test, memo

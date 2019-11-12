@@ -17,9 +17,9 @@ test = pd.read_csv(os.environ["PROJECT_DIR"] + "/input/test.csv")
 memo = pd.read_csv(os.environ["PROJECT_DIR"] + "/input/memo.csv")
 
 # Insert train, test data into DB
-table_write(df=train, table_name="train")
-table_write(df=test, table_name="test")
-table_write(df=memo, table_name="memo")
+table_write(table_name="train", df=train)
+table_write(table_name="test", df=test)
+table_write(table_name="memo", df=memo)
 
 # Create Index
 exec_query("CREATE INDEX train_index on train (index);")

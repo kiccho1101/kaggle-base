@@ -54,8 +54,17 @@ check:
 	docker-compose exec jupyter flake8 /app \
 	&& docker-compose exec jupyter mypy /app
 
+kfold-db: 
+	docker-compose exec jupyter python kfold/create.py $(filter-out $@,$(MAKECMDGOALS))
+
 feature: 
 	docker-compose exec jupyter python features/create.py $(filter-out $@,$(MAKECMDGOALS))
+
+cv: 
+	docker-compose exec jupyter python cross_validation/run.py $(filter-out $@,$(MAKECMDGOALS))
+
+train-and-predict: 
+	docker-compose exec jupyter python train_and_predict/run.py $(filter-out $@,$(MAKECMDGOALS))
 
 stop-all:
 	docker-compose down

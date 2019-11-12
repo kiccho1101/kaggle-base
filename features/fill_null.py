@@ -15,9 +15,7 @@ class AgeNullFilledWithMode(Feature):
             .astype(int)
         )
         test["age_null_filled_with_mode"] = (
-            train["age"]
-            .fillna(int(combined["age"].value_counts().index[0]))
-            .astype(int)
+            test["age"].fillna(int(combined["age"].value_counts().index[0])).astype(int)
         )
 
         memo = self.create_memo(
@@ -39,7 +37,7 @@ class EmbarkedNullFilledWithMode(Feature):
         train["embarked_null_filled_with_mode"] = train["embarked"].fillna(
             combined["embarked"].value_counts().index[0]
         )
-        test["embarked_null_filled_with_mode"] = train["embarked"].fillna(
+        test["embarked_null_filled_with_mode"] = test["embarked"].fillna(
             combined["embarked"].value_counts().index[0]
         )
 

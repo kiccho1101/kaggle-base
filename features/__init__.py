@@ -49,7 +49,6 @@ class Feature(metaclass=ABCMeta):
                 ["feature", "data_type", "description", "depends_on"]
             ]
         )
-        table_write(memo, table_name="memo")
         return memo
 
     def run(self):
@@ -60,6 +59,7 @@ class Feature(metaclass=ABCMeta):
             train, test, memo = self.create_features(train, test, memo)
             insert_cols(table_name="train", df=train)
             insert_cols(table_name="test", df=test)
+            table_write(table_name="memo", df=memo)
 
             cv_train_tables = find_table_name("cv_train")["table_name"].tolist()
             cv_test_tables = find_table_name("cv_test")["table_name"].tolist()
@@ -72,7 +72,6 @@ class Feature(metaclass=ABCMeta):
                 test = table_load(
                     table_name=cv_test_tables[n_fold], cols=self.depends_on()
                 )
-                memo = table_load(table_name="memo")
                 train, test, memo = self.create_features(train, test, memo)
                 insert_cols(table_name=cv_train_tables[n_fold], df=train)
                 insert_cols(table_name=cv_test_tables[n_fold], df=test)
