@@ -2,7 +2,7 @@ import json
 import sys
 
 from db import table_load
-from models import LightGBM, Model
+from models import LightGBM
 from submit import create_submission_file
 from utils import timer
 
@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     # Parse args
     config: dict = json.load(open("./configs/{}.json".format(config_file_name)))
-    model: Model = models[config["model"]["name"]]()
+    model = models[config["model"]["name"]]()
 
     with timer("train and predict"):
 

@@ -6,10 +6,8 @@ import numpy as np
 import pandas as pd
 from lightgbm import Booster
 
-from models.base import Model
 
-
-class LightGBM(Model):
+class LightGBM:
     def train_and_predict(
         self,
         train: pd.DataFrame,
@@ -38,8 +36,3 @@ class LightGBM(Model):
             num_iteration=model.best_iteration,
         )
         return model, y_pred
-
-    def metric(self, y_pred: np.array, y_real: np.array):
-        predicted = (y_pred > 0.5).astype(int)
-        accuracy = (predicted == y_real).sum() / len(predicted)
-        return accuracy
