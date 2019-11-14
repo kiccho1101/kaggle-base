@@ -42,6 +42,7 @@ if __name__ == "__main__":
                 train_cols=train_cols,
                 params=params,
             )
+            print("Finished train_and_predict")
 
             y_real = valid[target_cols].iloc[:, 0].values.flatten()
             cv_result = pd.DataFrame(

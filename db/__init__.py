@@ -71,7 +71,7 @@ def exec_query(query: str):
         conn.commit()
 
 
-def find_table_name(like: str) -> pd.DataFrame:
+def find_table_name(like: str, unlike=None) -> pd.DataFrame:
     with psycopg2.connect(
         user=os.environ["POSTGRES_USER"],
         password=os.environ["POSTGRES_PASSWORD"],
@@ -84,6 +84,8 @@ def find_table_name(like: str) -> pd.DataFrame:
         query += " WHERE table_schema='public'"
         query += " AND table_type='BASE TABLE'"
         query += " AND table_name LIKE '%{}%'".format(like)
+        if unlike is not None:
+            query += " AND table_name NOT ILIKE '%{}%'".format(unlike)
         query += " ORDER BY table_name; "
         df = pd.read_sql(query, con=conn)
         return df

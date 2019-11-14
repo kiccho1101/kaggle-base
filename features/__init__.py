@@ -61,8 +61,12 @@ class Feature(metaclass=ABCMeta):
             insert_cols(table_name="test", df=test)
             table_write(table_name="memo", df=memo)
 
-            cv_train_tables = find_table_name("cv_train")["table_name"].tolist()
-            cv_test_tables = find_table_name("cv_test")["table_name"].tolist()
+            cv_train_tables = find_table_name(like="cv_train", unlike="stats")[
+                "table_name"
+            ].tolist()
+            cv_test_tables = find_table_name("cv_test", unlike="stats")[
+                "table_name"
+            ].tolist()
             if len(cv_train_tables) != len(cv_test_tables):
                 raise ValueError("# of cv_train is not equal to # of cv_test!")
             for n_fold in range(len(cv_train_tables)):
