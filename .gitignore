@@ -2,10 +2,10 @@
 docker/postgres/data
 docker/metabase/data
 output/submission/submission_*.csv
-output/hp_tuning_results/*_log.txt
+*_log.txt
+*.pickle
 
 .vscode 
-*.pickle
 
 
 # Created by https://www.gitignore.io/api/python,jupyternotebooks
