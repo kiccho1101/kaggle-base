@@ -13,7 +13,7 @@ def create_submission_file(PassengerId, Survived, exp_name: str):
             len(
                 glob.glob(
                     os.environ["PROJECT_DIR"]
-                    + "/output/submission_{}_{}_*.csv".format(
+                    + "/output/submission/submission_{}_{}_*.csv".format(
                         pd.to_datetime("today").strftime("%Y-%m-%d"), exp_name
                     )
                 )
@@ -21,12 +21,12 @@ def create_submission_file(PassengerId, Survived, exp_name: str):
             + 1
         )
 
-        submission_file_name = os.environ[
-            "PROJECT_DIR"
-        ] + "/output/submission/submission_{}_{}_{}.csv".format(
+        submission_file_name = "output/submission/submission_{}_{}_{}.csv".format(
             pd.to_datetime("today").strftime("%Y-%m-%d"), exp_name, submission_no
         )
 
         pd.DataFrame({"PassengerId": PassengerId, "Survived": Survived}).to_csv(
-            submission_file_name, index=False
+            os.environ["PROJECT_DIR"] + "/" + submission_file_name, index=False
         )
+
+        print("Submit file is written: ", submission_file_name)

@@ -29,6 +29,8 @@ def lgb_objective(trial):
         "metric": "binary_logloss",
         "verbosity": -1,
         "boosting_type": "gbdt",
+        "learning_rate": trial.suggest_loguniform("learning_rate", 1e-8, 10.0),
+        "max_depth": trial.suggest_int("max_depth", 1, 30),
         "lambda_l1": trial.suggest_loguniform("lambda_l1", 1e-8, 10.0),
         "lambda_l2": trial.suggest_loguniform("lambda_l2", 1e-8, 10.0),
         "num_leaves": trial.suggest_int("num_leaves", 2, 256),
