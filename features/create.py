@@ -1,6 +1,7 @@
 import inspect
 import sys
 
+from features.basic import *
 from features.categorical import *
 from features.fill_null import *
 from utils import timer
