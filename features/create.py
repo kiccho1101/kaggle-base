@@ -1,10 +1,11 @@
 import inspect
 import sys
 
-from features.basic import *
-from features.categorical import *
-from features.fill_null import *
 from utils import timer
+
+from features.fill_null import *  # isort:skip
+from features.basic import *  # isort:skip
+from features.categorical import *  # isort:skip
 
 
 def get_features() -> dict:
