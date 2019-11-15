@@ -51,10 +51,18 @@ class Feature(metaclass=ABCMeta):
         )
         return memo
 
+    def target_cols(self):
+        return ["survived"]
+
     def run(self):
         with timer(self.name):
             train = table_load(table_name="train", cols=self.depends_on())
-            test = table_load(table_name="test", cols=self.depends_on())
+            test = table_load(
+                table_name="test",
+                cols=[
+                    col for col in self.depends_on() if col not in self.target_cols()
+                ],
+            )
             memo = table_load(table_name="memo")
             train, test, memo = self.create_features(train, test, memo)
             insert_cols(table_name="train", df=train)
@@ -74,7 +82,12 @@ class Feature(metaclass=ABCMeta):
                     table_name=cv_train_tables[n_fold], cols=self.depends_on()
                 )
                 test = table_load(
-                    table_name=cv_test_tables[n_fold], cols=self.depends_on()
+                    table_name=cv_test_tables[n_fold],
+                    cols=[
+                        col
+                        for col in self.depends_on()
+                        if col not in self.target_cols()
+                    ],
                 )
                 train, test, memo = self.create_features(train, test, memo)
                 insert_cols(table_name=cv_train_tables[n_fold], df=train)

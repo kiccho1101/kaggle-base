@@ -23,3 +23,45 @@ class PclassFrequency(Feature):
             " ".join(self.depends_on()),
         )
         return train, test, memo
+
+
+class PclassTargetEncodingMean(Feature):
+    def depends_on(self):
+        return ["pclass", "survived"]
+
+    def create_features(self, train, test, memo):
+        train["pclass_target_encoding_mean"] = (
+            train["pclass"]
+            .map(train.groupby("pclass")["survived"].mean())
+            .astype(float)
+        )
+        test["pclass_target_encoding_mean"] = (
+            test["pclass"].map(train.groupby("pclass")["survived"].mean()).astype(float)
+        )
+
+        memo = self.create_memo(
+            memo,
+            "pclass_target_encoding_mean",
+            "float",
+            "High number means more survived",
+            " ".join(self.depends_on()),
+        )
+        return train, test, memo
+
+
+class NameTitles(Feature):
+    def depends_on(self):
+        return ["name"]
+
+    def create_features(self, train, test, memo):
+        train["name_titles"] = train["name"].str.extract(r"([^\ ]*)\.").iloc[:, 0]
+        test["name_titles"] = test["name"].str.extract(r"([^\ ]*)\.").iloc[:, 0]
+
+        memo = self.create_memo(
+            memo,
+            "name_titles",
+            "str",
+            "Mr, Mrs, Miss, etc...",
+            " ".join(self.depends_on()),
+        )
+        return train, test, memo
