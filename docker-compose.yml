@@ -1,10 +1,10 @@
 version: "3.2"
 services:
-  jupyter:
+  kaggle-base:
     build: 
       context: .
-      dockerfile: ./docker/jupyter/Dockerfile
-    image: youodf/jupyter
+      dockerfile: ./docker/kaggle-base/Dockerfile
+    image: youodf/kaggle-base
     ports:
       - "${JUPYTER_PORT}:8888"
     environment:

@@ -4,11 +4,19 @@
     "target": ["survived"],
     "train": [
       "fare",
+      "sib_sp",
+      "parch",
+      "family_size",
+      "is_alone",
       "age_null_filled_with_mode",
       "sex_int",
-      "pclass_target_encoding_mean"
+      "pclass_target_encoding_mean",
+      "is_mr",
+      "is_miss",
+      "is_mrs",
+      "is_master"
     ],
-    "categorical": ["sex_int"]
+    "categorical": []
   },
   "model": {
     "name": "lightgbm",
@@ -16,13 +24,16 @@
       "boosting_type": "gbdt",
       "objective": "binary",
       "metric": "binary_logloss",
-      "learning_rate": 0.0379,
-      "max_depth": 10,
+      "learning_rate": 0.66,
+      "max_depth": 18,
       "min_child_weight": 0,
-      "lambda_l1": 1.441577431823399e-06,
-      "lambda_l2": 5.939764871407443e-08,
-      "num_leaves": 120,
-      "min_child_samples": 20,
+      "lambda_l1": 0.01,
+      "lambda_l2": 0.01,
+      "num_leaves": 170,
+      "min_child_samples": 80,
+      "feature_fraction": 0.7959426985802768,
+      "bagging_fraction": 0.6763063410560335,
+      "bagging_freq": 5,
       "verbose": -1
     },
     "train_params": {
