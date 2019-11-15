@@ -41,7 +41,6 @@ make start-db
 ```
 
 - Then you can access to localhost:${PGWEB_PORT} (default: 9002) to view the database.
-- You can access to localhost:${METABASE_PORT} (default: 9003) to do the simple BI.
 
 ### Step4. Split train data into K-fold
 
