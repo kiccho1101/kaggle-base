@@ -2,7 +2,8 @@
 docker/postgres/data
 docker/metabase/data
 output/submission/submission_*.csv
-output/hp_tuning_results
+output/hp_tuning_results/*.txt
+output/hp_tuning_results/*.pickle
 *_log.txt
 *.pickle
 
