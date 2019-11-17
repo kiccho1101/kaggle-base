@@ -24,6 +24,7 @@ def insert_cols(table_name: str, df: pd.DataFrame):
         np.dtype("object"): "TEXT",
         np.dtype("int32"): "BIGINT",
         np.dtype("int64"): "BIGINT",
+        np.dtype("uint8"): "BIGINT",
         np.dtype("float64"): "DOUBLE PRECISION",
     }
 

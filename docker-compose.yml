@@ -13,6 +13,8 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - PROJECT_DIR=/app
+      - KAGGLE_USERNAME=${KAGGLE_USERNAME}
+      - KAGGLE_KEY=${KAGGLE_KEY}
     volumes:
       - .:/app
     command: jupyter notebook --ip 0.0.0.0 --no-browser --allow-root

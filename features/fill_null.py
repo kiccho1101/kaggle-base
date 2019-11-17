@@ -49,3 +49,27 @@ class EmbarkedNullFilledWithMode(Feature):
             " ".join(self.depends_on()),
         )
         return train, test, memo
+
+
+class FareFilled(Feature):
+    def depends_on(self):
+        return ["fare", "pclass", "sex"]
+
+    def create_features(self, train, test, memo):
+        combined = pd.concat([train, test], axis=0, sort=True)
+        fare_map = combined.groupby(["pclass", "sex"])["fare"].median()
+
+        combined["fare"].fillna(
+            combined.apply(lambda x: fare_map[x["pclass"]][x["sex"]], axis=1)
+        )
+
+        train, test = combined.iloc[: len(train)], combined.iloc[len(train) :]
+
+        memo = self.create_memo(
+            memo,
+            "fare_filled",
+            "float",
+            "fare filled with median values grouped by (pclass, sex)",
+            " ".join(self.depends_on()),
+        )
+        return train, test, memo

@@ -16,6 +16,8 @@ if __name__ == "__main__":
 
     print("Config file Name: ", config_file_name)
 
+    accuracies = []
+
     config: dict = json.load(open("./configs/{}.json".format(config_file_name)))
 
     models: dict = {"lightgbm": LightGBM}
@@ -42,7 +44,6 @@ if __name__ == "__main__":
                 train_cols=train_cols,
                 params=params,
             )
-            print("Finished train_and_predict")
 
             y_real = valid[target_cols].iloc[:, 0].values.flatten()
             cv_result = pd.DataFrame(
@@ -58,5 +59,8 @@ if __name__ == "__main__":
 
             predicted = (y_pred.flatten() > 0.5).astype(int)
             accuracy = (predicted == y_real).sum() / len(predicted)
+            accuracies.append(accuracy)
 
             print("Accuracy: {}".format(accuracy))
+
+    print("Total Accuracy: {}".format(np.mean(accuracies)))

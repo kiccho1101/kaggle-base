@@ -23,6 +23,7 @@ RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git \
 
 # Upgraade pip
 RUN pip install -U pip
+RUN pip install kaggle --upgrade
 
 # Install libraries
 RUN pip install -r /app/requirements.txt 

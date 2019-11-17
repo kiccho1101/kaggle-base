@@ -23,7 +23,7 @@
     "categorical": []
   },
   "model": {
-    "name": "lightgbm",
+    "name": "xgboost",
     "model_params": {
       "boosting_type": "gbdt",
       "objective": "binary",
