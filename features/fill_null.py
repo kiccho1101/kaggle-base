@@ -59,7 +59,7 @@ class FareFilled(Feature):
         combined = pd.concat([train, test], axis=0, sort=True)
         fare_map = combined.groupby(["pclass", "sex"])["fare"].median()
 
-        combined["fare"].fillna(
+        combined["fare_filled"] = combined["fare"].fillna(
             combined.apply(lambda x: fare_map[x["pclass"]][x["sex"]], axis=1)
         )
 
