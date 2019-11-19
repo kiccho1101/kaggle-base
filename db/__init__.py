@@ -10,6 +10,17 @@ from utils import timer
 
 
 def insert_cols(table_name: str, df: pd.DataFrame):
+    # Rename cols to snake_case
+    df.columns = (
+        pd.Series(df.columns)
+        .map(
+            lambda col: re.sub(
+                "([A-Z])", lambda x: "_" + x.group(1).lower(), col
+            ).lstrip("_")
+        )
+        .tolist()
+    )
+
     engine = create_engine(
         "postgresql://{}:{}@{}:5432/{}".format(
             os.environ["POSTGRES_USER"],

@@ -5,7 +5,8 @@ import numpy as np
 import pandas as pd
 
 from db import table_load, table_write
-from models import LightGBM
+from models import CatboostClassifier, LightGBM, XGBoostClassifier
+from postprocessing import postprocessing
 from utils import timer
 
 if __name__ == "__main__":
@@ -20,7 +21,11 @@ if __name__ == "__main__":
 
     config: dict = json.load(open("./configs/{}.json".format(config_file_name)))
 
-    models: dict = {"lightgbm": LightGBM}
+    models: dict = {
+        "lightgbm": LightGBM,
+        "xgbClassifier": XGBoostClassifier,
+        "catboostClassifier": CatboostClassifier,
+    }
     model = models[config["model"]["name"]]()
 
     n_splits = config["cv"]["n_splits"]
@@ -32,8 +37,9 @@ if __name__ == "__main__":
 
     for n_fold in range(n_splits):
         with timer("CV No.{}".format(n_fold)):
-            train = table_load("cv_train_{}".format(n_fold), train_cols + target_cols)
-            valid = table_load("cv_test_{}".format(n_fold), train_cols + target_cols)
+            train = table_load("cv_train_{}".format(n_fold))
+            valid = table_load("cv_test_{}".format(n_fold))
+            y_real = valid[target_cols].iloc[:, 0].values.flatten()
 
             cv_model, y_pred = model.train_and_predict(
                 train=train,
@@ -45,7 +51,9 @@ if __name__ == "__main__":
                 params=params,
             )
 
-            y_real = valid[target_cols].iloc[:, 0].values.flatten()
+            valid["survived"] = y_pred
+            y_pred = postprocessing(train=train, test=valid)
+
             cv_result = pd.DataFrame(
                 {
                     "index": valid.index,

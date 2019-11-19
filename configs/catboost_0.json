@@ -30,11 +30,11 @@
     "categorical": []
   },
   "model": {
-    "name": "xgbClassifier",
+    "name": "catboostClassifier",
     "model_params": {
-      "learning_rate": 0.4,
-      "max_depth": 10,
-      "n_estimators": 10
+      "eval_metric": "Accuracy",
+      "learning_rate": 0.1,
+      "depth": 10
     },
     "train_params": {
       "num_boost_round": 350,

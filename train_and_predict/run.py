@@ -2,11 +2,16 @@ import json
 import sys
 
 from db import table_load
-from models import LightGBM
+from models import CatboostClassifier, LightGBM, XGBoostClassifier
+from postprocessing import postprocessing
 from submit import create_submission_file
 from utils import timer
 
-models: dict = {"lightgbm": LightGBM}
+models: dict = {
+    "lightgbm": LightGBM,
+    "xgbClassifier": XGBoostClassifier,
+    "catboostClassifier": CatboostClassifier,
+}
 
 if __name__ == "__main__":
 
@@ -24,16 +29,8 @@ if __name__ == "__main__":
     with timer("train and predict"):
 
         # Load data
-        train = table_load(
-            table_name=config["dataset"]["train_table"],
-            cols=config["features"]["id"]
-            + config["features"]["target"]
-            + config["features"]["train"],
-        )
-        test = table_load(
-            table_name=config["dataset"]["test_table"],
-            cols=config["features"]["id"] + config["features"]["train"],
-        )
+        train = table_load(table_name=config["dataset"]["train_table"])
+        test = table_load(table_name=config["dataset"]["test_table"])
 
         # Train and predict
         result_model, y_pred = model.train_and_predict(
@@ -45,6 +42,9 @@ if __name__ == "__main__":
             train_cols=config["features"]["train"],
             params=config["model"],
         )
+
+        test["survived"] = y_pred
+        y_pred = postprocessing(train=train, test=test)
 
         # Create submission file
         create_submission_file(
